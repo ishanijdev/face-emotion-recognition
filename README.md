@@ -74,7 +74,3 @@ This project was a collaborative effort by:
 ## Acknowledgments
 
 We would like to express our sincere gratitude to our faculty guide, *Dr. Abhishek Singhal, for his invaluable guidance and unwavering support throughout this project. This project was submitted in partial fulfillment of the requirements for the Bachelor of Technology degree at **Amity University Uttar Pradesh*.
-
-## License
-
-Distributed under the MIT License. See LICENSE for more information.
