@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Real-Time Face Emotion Recognition</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet" />
+  <link rel="icon" type="image/jpg" href="{{url_for('static',filename='2.jpg')}}" />
+  <link rel="stylesheet" href="{{url_for('static',filename='style.css')}}" />
+</head>
+<body>
+  <header>
+    <div class="logo">
+    <img src="{{url_for('static',filename='2.jpg')}}" alt="Logo" style="height: 50px; vertical-align: middle; margin-right: 10px;" />
+    <span style="font-weight: 700; font-size: 1.7rem; color: var(--primary);">EmotionAI</span>
+    </div>
+    <nav>
+      <a href="#hero">Home</a>
+      <a href="#about-section">About</a>
+      <a href="#contact-section">Contact</a>
+      <div class="toggle-container">
+        <label for="mode-toggle">🌙</label>
+        <input type="checkbox" id="mode-toggle" />
+      </div>
+    </nav>
+  </header>
+
+    <main id="hero">
+    <h1>Real-Time Face Emotion Recognition</h1>
+    <p class="description">
+      Experience real-time emotion recognition using deep learning.<br />
+      Interact with your webcam or upload an image and explore how AI interprets human emotions.
+      <br />
+    </p>
+
+    <!-- Mode Selection Buttons -->
+    <div style="margin: 2rem 0;">
+      <button id="choose-webcam" style="margin-right: 2rem;">🎥 Use Webcam</button>
+      <button id="choose-upload">🖼️ Upload Image</button>
+    </div>
+
+    <!-- Webcam Section -->
+    <div id="webcam-section" style="display: none;">
+      <button id="open-recognition" style="margin-bottom: 2rem;">Start Webcam</button>
+      <section id="recognition-section" style="display: none;">
+        <div id="video-container">
+          <video id="webcam" autoplay muted playsinline></video>
+        </div>
+        <div id="emotion-result">Emotion: Waiting for detection...</div>
+      </section>
+    </div>
+
+    <!-- Upload Image Section -->
+    <div id="upload-section" style="display: none;">
+      <div id="image" style="margin-top: 1.5rem;">
+        <h2 style="font-size: 1.8rem; margin-top: 1rem; margin-bottom: 1rem;">📤 Upload an Image to Detect Emotion</h2>
+        <input style="margin-left: 8rem;" type="file" id="image-upload" accept="image/*" />
+        <div id="preview-container" style="margin-top: 0.8rem;"></div>
+        <div id="upload-emotion-result" style="margin-top: 1.2rem; font-size: 1.3rem; font-weight: bold; color: var(--primary-dark);"></div>
+      </div>
+    </div>
+
+    <!-- Audio Toggle -->
+    <div id="audio" style="margin-top: 1.5rem;">
+      <label style="font-weight: 600; font-size: 2rem;">
+        🔈 Audio Feedback:
+        <input type="checkbox" id="audio-toggle" checked />
+      </label>
+    </div>
+  </main>
+
+  <!--About section-->
+  <section id="about-section">
+    <h2>💡 About the Project</h2>
+    <div class="about-content">
+      <div class="about-left">
+        <p>Have you ever wondered if a machine can understand how you feel by just looking at your face?</p>
+        <p>This project demonstrates that possibility — <strong>Real-Time Face Emotion Recognition</strong> is a smart system that detects and classifies human emotions through facial expressions in real-time using your webcam.</p>
+        <p>Just open the camera or upload a photo and let AI interpret your expressions instantly.</p>
+        <p>It uses the <strong>FER2013</strong> dataset, which contains around 35,887 grayscale facial images in total, to detect 5 emotions: <strong>Happy, Sad, Angry, Surprise</strong>, and <strong>Neutral</strong>.</p>
+        <p>Whether for mental health, user experience, or just curiosity, this tool makes emotion-aware interaction simple and insightful !</p>
+      </div>
+      <div class="highlight-box">
+        <div class="feature-box"><span>📷</span> <div><strong>Real-Time</strong> — Works instantly with your webcam.</div></div>
+        <div class="feature-box"><span>📈</span> <div><strong>Accuracy</strong> — Achieves 73.67% on FER2013 dataset.</div></div>
+        <div class="feature-box"><span>🔊</span> <div><strong>Audio Feedback</strong> — Spoken output of your emotion.</div></div>
+        <div class="feature-box"><span>🖼️</span> <div><strong>Upload Photo</strong> — Detect emotion from uploaded image.</div></div>
+      </div>
+    </div>
+  </section>
+
+  <!--Emotion section-->
+  <section id="emotions-section">
+    <h2>🔍 Emotions Recognized by EmotionAI</h2>
+    <div class="emotion-gallery">
+      <div class="emotion-box">
+        <img src="{{ url_for('static', filename='angry.jpg') }}" alt="Angry" class="emotion-img">
+        <p>Anger</p>
+      </div>
+      <div class="emotion-box">
+        <img src="{{ url_for('static', filename='happy.jpg') }}" alt="Happy" class="emotion-img">
+        <p>Happy</p>
+      </div>
+      <div class="emotion-box">
+        <img src="{{ url_for('static', filename='sad.jpg') }}" alt="Sad" class="emotion-img">
+        <p>Sad</p>
+      </div>
+      <div class="emotion-box">
+        <img src="{{ url_for('static', filename='neutral.jpg') }}" alt="Sad" class="emotion-img">
+        <p>Neutral</p>
+      </div>
+      <div class="emotion-box">
+        <img src="{{ url_for('static', filename='surprise.jpg') }}" alt="Sad" class="emotion-img">
+        <p>Surprise</p>
+      </div>
+    </div>
+  </section>
+
+  <!--Contact section-->
+  <section id="contact-section">
+    <h2>📬 Contact Us</h2>
+    <div class="contact-content">
+      <div class="contact-item">
+        Email: 
+        <a href="mailto:ijindal2005@gmail.com">ijindal2005@gmail.com</a> | 
+        <a href="mailto:meharbhanwra1004@gmail.com">meharbhanwra1004@gmail.com</a>
+      </div>
+
+      <div class="contact-item">
+        GitHub: 
+        <a href="https://github.com/ishanijdev" target="_blank">github.com/ishanijindal</a> |
+        <a href="https://github.com/meharbhanwra" target="_blank">github.com/meharbhanwra</a>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <p>Created by Ishani Jindal & Mehar Bhanwra | Powered by FER2013</p>
+  </footer>
+
+  <script>
+    const openBtn = document.getElementById('open-recognition');
+    const recognitionSection = document.getElementById('recognition-section');
+    const webcamVideo = document.getElementById('webcam');
+    const emotionResult = document.getElementById('emotion-result');
+    const modeToggle = document.getElementById('mode-toggle');
+    const audioToggle = document.getElementById('audio-toggle');
+
+    let stream = null;
+    let isRecognitionOpen = false;
+    let lastSpokenEmotion = null; 
+
+    async function startWebcam() {
+      try {
+        stream = await navigator.mediaDevices.getUserMedia({ video: true, audio: false });
+        webcamVideo.srcObject = stream;
+      } catch (err) {
+        emotionResult.textContent = 'Error: Unable to access webcam.';
+        console.error(err);
+      }
+    }
+
+    function stopWebcam() {
+      if (stream) {
+        stream.getTracks().forEach(track => track.stop());
+        stream = null;
+      }
+    }
+
+    function speak(text) {
+      const synth = window.speechSynthesis;
+      if (!synth) return;
+      const utterance = new SpeechSynthesisUtterance(text);
+      utterance.lang = 'en-US';
+      synth.cancel();
+      synth.speak(utterance);
+    }
+
+    openBtn.addEventListener('click', () => {
+      isRecognitionOpen = !isRecognitionOpen;
+      recognitionSection.style.display = isRecognitionOpen ? 'block' : 'none';
+      openBtn.textContent = isRecognitionOpen ? 'Close Emotion Recognition' : 'Open Emotion Recognition';
+
+      if (isRecognitionOpen) {
+        startWebcam();
+        emotionResult.textContent = 'Emotion: Loading...';
+      } else {
+        stopWebcam();
+        emotionResult.textContent = 'Emotion: Waiting for detection...';
+      }
+    });
+
+    function captureAndSendFrame() {
+      const canvas = document.createElement('canvas');
+      canvas.width = webcamVideo.videoWidth;
+      canvas.height = webcamVideo.videoHeight;
+      canvas.getContext('2d').drawImage(webcamVideo, 0, 0);
+      const imageData = canvas.toDataURL('image/jpeg');
+
+      fetch('/predict', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ image: imageData })
+      })
+      .then(response => response.json())
+      .then(data => {
+      const emotion = data.emotion;
+      emotionResult.textContent = `Emotion: ${emotion}`;
+
+      if (audioToggle.checked && emotion !== lastSpokenEmotion) {
+        if (emotion.toLowerCase() === "no face detected") {
+          speak("No face detected");
+        } else {
+          speak(`You seem to be feeling ${emotion}`);
+        }
+        lastSpokenEmotion = emotion;
+      }
+    })
+      .catch(err => {
+        console.error('Prediction error:', err);
+        emotionResult.textContent = 'Emotion: Error detecting';
+      });
+    }
+
+    setInterval(() => {
+      if (isRecognitionOpen && stream) {
+        captureAndSendFrame();
+      }
+    }, 2000);
+
+    modeToggle.addEventListener('change', () => {
+      document.body.classList.toggle('dark-mode');
+    });
+    const uploadInput = document.getElementById("image-upload");
+    const previewContainer = document.getElementById("preview-container");
+    const uploadEmotionResult = document.getElementById("upload-emotion-result");
+
+    uploadInput.addEventListener("change", () => {
+      const file = uploadInput.files[0];
+      if (!file) return;
+
+      const reader = new FileReader();
+      reader.onload = function () {
+        const img = new Image();
+        img.src = reader.result;
+        img.style.maxWidth = "300px";
+        img.style.borderRadius = "0.5rem";
+        img.style.boxShadow = "var(--shadow)";
+        previewContainer.innerHTML = "";
+        previewContainer.appendChild(img);
+
+        fetch("/predict", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ image: reader.result })
+        })
+          .then((res) => res.json())
+          .then((data) => {
+            const emotion = data.emotion;
+            uploadEmotionResult.textContent = `Emotion: ${emotion}`;
+            if (audioToggle.checked) speak(`The uploaded face shows ${emotion}`);
+          })
+          .catch((err) => {
+            console.error(err);
+            uploadEmotionResult.textContent = "Emotion: Error detecting.";
+          });
+      };
+      reader.readAsDataURL(file);
+    });
+    const webcamSection = document.getElementById("webcam-section");
+    const uploadSection = document.getElementById("upload-section");
+    const chooseWebcamBtn = document.getElementById("choose-webcam");
+    const chooseUploadBtn = document.getElementById("choose-upload");
+
+    chooseWebcamBtn.addEventListener("click", () => {
+      uploadSection.style.display = "none";
+      webcamSection.style.display = "block";
+      recognitionSection.style.display = "block"; // <== Show camera section immediately
+      startWebcam(); // <== Start webcam immediately
+      openBtn.textContent = "Close Emotion Recognition";
+      isRecognitionOpen = true; // <== Mark as open so interval starts capturing
+    });
+
+    chooseUploadBtn.addEventListener("click", () => {
+      const isAlreadyVisible = uploadSection.style.display === "block";
+
+      // Hide everything first
+      webcamSection.style.display = "none";
+      recognitionSection.style.display = "none";
+      openBtn.textContent = "Start Webcam";
+      stopWebcam();  // turn off webcam
+
+      if (isAlreadyVisible) {
+        // Toggle off
+        uploadSection.style.display = "none";
+        previewContainer.innerHTML = "";
+        uploadEmotionResult.textContent = "";
+      } else {
+        // Show upload
+        uploadSection.style.display = "block";
+      }
+    });
+  </script>
+</body>
+</html>
+
+
