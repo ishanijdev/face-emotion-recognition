@@ -1,55 +1,69 @@
-from flask import Flask, render_template, request, jsonify
+import streamlit as st
 import cv2
 import numpy as np
 from tensorflow.keras.models import load_model
-import base64
+from PIL import Image
 
-app = Flask(__name__)
+# Use Streamlit's caching to load the model only once.
+@st.cache_resource
+def load_emotion_model():
+    """Loads the pre-trained emotion detection model and face cascade."""
+    model = load_model('5_class_model.h5')
+    face_cascade = cv2.CascadeClassifier(cv2.data.haarcascades + 'haarcascade_frontalface_default.xml')
+    return model, face_cascade
 
-# Load the model
-model = load_model('5_class_model.h5')
-class_labels = ['angry', 'happy', 'neutral', 'sad', 'surprise']
-face_cascade = cv2.CascadeClassifier(cv2.data.haarcascades + 'haarcascade_frontalface_default.xml')
+# Define the labels for the emotions
+CLASS_LABELS = ['angry', 'happy', 'neutral', 'sad', 'surprise']
 
-@app.route('/')
-def index():
-    return render_template('index.html') 
+# Load the model and cascade classifier
+model, face_cascade = load_emotion_model()
 
-@app.route('/predict', methods=['POST'])
-def predict():
-    try:
-        data = request.get_json()
-        image_data = data['image']
 
-        # Decode base64 image
-        encoded_data = image_data.split(',')[1]
-        image_bytes = base64.b64decode(encoded_data)
-        nparr = np.frombuffer(image_bytes, np.uint8)
-        img = cv2.imdecode(nparr, cv2.IMREAD_COLOR)
+# --- Streamlit User Interface ---
+st.set_page_config(page_title="Face Emotion Recognition", layout="centered")
+st.title("🙂 Face Emotion Recognition")
+st.write("Upload an image to see the predicted emotion. The model will detect the first face found.")
 
-        gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
-        faces = face_cascade.detectMultiScale(gray, scaleFactor=1.3, minNeighbors=5)
+# Create a file uploader widget
+uploaded_file = st.file_uploader("Choose an image...", type=["jpg", "jpeg", "png"])
+
+if uploaded_file is not None:
+    # Open the uploaded image
+    pil_image = Image.open(uploaded_file)
+    # Convert the PIL image to an OpenCV image (NumPy array)
+    opencv_image = np.array(pil_image.convert('RGB'))
+    # Convert RGB to BGR for OpenCV
+    opencv_image = opencv_image[:, :, ::-1].copy()
+
+    # Display the uploaded image
+    st.image(pil_image, caption='Uploaded Image.', use_column_width=True)
+    
+    # Add a button to trigger prediction
+    if st.button('Detect Emotion'):
+        # Convert the image to grayscale for face detection
+        gray_image = cv2.cvtColor(opencv_image, cv2.COLOR_BGR2GRAY)
+        
+        # Detect faces in the image
+        faces = face_cascade.detectMultiScale(gray_image, scaleFactor=1.3, minNeighbors=5)
 
         if len(faces) == 0:
-            return jsonify({'emotion': 'No face detected'})
-
-        for (x, y, w, h) in faces:
-            roi_gray = gray[y:y+h, x:x+w]
+            st.error("No face was detected in the image. Please try another one.")
+        else:
+            # Process the first detected face
+            (x, y, w, h) = faces[0]
+            
+            # Extract the region of interest (the face)
+            roi_gray = gray_image[y:y+h, x:x+w]
+            
+            # Preprocess the face for the model
             roi_resized = cv2.resize(roi_gray, (48, 48))
             roi_normalized = roi_resized / 255.0
             roi_reshaped = np.reshape(roi_normalized, (1, 48, 48, 1))
 
-            prediction = model.predict(roi_reshaped)
-            label_index = np.argmax(prediction)
-            label = class_labels[label_index]
+            # Make a prediction
+            with st.spinner('Analyzing emotion...'):
+                prediction = model.predict(roi_reshaped)
+                label_index = np.argmax(prediction)
+                emotion = CLASS_LABELS[label_index]
 
-            return jsonify({'emotion': label})
-
-        return jsonify({'emotion': 'No face detected'})
-
-    except Exception as e:
-        print(f"[ERROR] {e}")
-        return jsonify({'emotion': 'Error processing image'})
-
-if __name__ == '__main__':
-    app.run(debug=True)
+                st.success(f"**Predicted Emotion: {emotion.capitalize()}**")
