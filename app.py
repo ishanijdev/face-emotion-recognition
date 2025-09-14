@@ -163,14 +163,14 @@ with st.container():
             pil_image = Image.open(uploaded_file)
             opencv_image = np.array(pil_image.convert('RGB'))[:, :, ::-1]
             
-            st.image(pil_image, caption='Your Uploaded Image', use_column_width=True)
+            st.image(pil_image, caption='Your Uploaded Image', use_container_width=True)
             
             if st.button("Analyze Image", use_container_width=True):
                 with st.spinner("Detecting emotion..."):
                     emotion, result_img = predict_emotion(opencv_image)
                     if emotion:
                         st.success(f"**Predicted Emotion: {emotion.capitalize()}**")
-                        st.image(result_img, caption="Analysis Result", use_column_width=True)
+                        st.image(result_img, caption="Analysis Result", use_container_width=True)
                         text_to_audio_autoplay(f"The detected emotion is {emotion}")
                     else:
                         st.error("No face detected. Please try another image.")
@@ -188,7 +188,7 @@ with st.container():
                 emotion, result_img = predict_emotion(opencv_image)
                 if emotion:
                     st.success(f"**Predicted Emotion: {emotion.capitalize()}**")
-                    st.image(result_img, caption="Analysis Result", use_column_width=True)
+                    st.image(result_img, caption="Analysis Result", use_container_width=True)
                     text_to_audio_autoplay(f"The detected emotion is {emotion}")
                 else:
                     st.error("No face detected. Please try again.")
