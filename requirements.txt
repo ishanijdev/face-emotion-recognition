@@ -4,7 +4,7 @@ gunicorn
 
 # Machine Learning
 tensorflow-cpu
-opencv-python
+opencv-python-headless
 scikit-learn
 numpy
 Pillow
@@ -13,3 +13,4 @@ Pillow
 
 requests
 streamlit
+
