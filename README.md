@@ -81,9 +81,5 @@ This project was a collaborative effort by:
     * Responsive User Interface Design (HTML, CSS, JavaScript).
     * Integration of the CNN Model with the Web Interface using OpenCV.
 
-## Acknowledgments
-
-We would like to express our sincere gratitude to our faculty guide, *Dr. Abhishek Singhal*, for his invaluable guidance and unwavering support throughout this project. This project was submitted in partial fulfillment of the requirements for the Bachelor of Technology degree at **Amity University Uttar Pradesh**.
-
 ## Licenses
 Our project is open source and is completely free to use for educational purposes.
