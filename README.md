@@ -1,7 +1,7 @@
 # EmotionAI: Real-Time Face Emotion Recognition System
 
 A deep learning-powered web application that detects and classifies human emotions from a live webcam feed or user-uploaded images in real-time.
-<img width="1919" height="923" alt="screenshot1" src="https://github.com/user-attachments/assets/05716ed9-aa20-4533-b0a1-6b4c00425f9c" />
+<img width="1846" height="923" alt="screenshot1" src="https://github.com/user-attachments/assets/e2955bd7-effe-4140-bde9-af83310250b5" />
 
 
 ## About The Project
@@ -11,13 +11,13 @@ This project aims to bridge the gap between human-computer interaction by creati
 ### Key Features
 
 * *Real-Time Webcam Analysis*: Captures video frames to detect and classify emotions instantly.
-  <img width="1919" height="919" alt="Screenshot 2026-01-03 013112" src="https://github.com/user-attachments/assets/15ca77a3-67de-4de1-8bf4-24fb757a4d39" />
+  <img width="1851" height="919" alt="Screenshot 2026-01-03 013112" src="https://github.com/user-attachments/assets/de9a5824-ead5-411b-81fc-0ddae8cfeccc" />
 
 * *Image Upload Functionality*: Allows users to upload an image to get an emotion prediction.
-  <img width="1912" height="912" alt="Screenshot 2026-01-03 013136" src="https://github.com/user-attachments/assets/8c99b31f-a538-45b9-8964-a987f82c5a26" />
+  <img width="1842" height="912" alt="Screenshot 2026-01-03 013136" src="https://github.com/user-attachments/assets/b9518176-1ea4-4c45-9829-be165f43c694" />
 
 * *High Performance*: The system is optimized for a balance between accuracy and real-time usability, ensuring a smooth user experience.
-  <img width="1915" height="920" alt="screenshot2" src="https://github.com/user-attachments/assets/7a7e7fc2-3ab9-4f17-ac60-e249dba5f45b" />
+  <img width="1837" height="920" alt="screenshot2" src="https://github.com/user-attachments/assets/ef054696-9979-4e86-845a-f092d38fd6db" />
 
 * *Interactive UI*: A clean and responsive web interface built with HTML, CSS, and JavaScript, featuring a dark mode toggle for user comfort.
   <img width="1857" height="917" alt="ss" src="https://github.com/user-attachments/assets/d7f2fff1-844e-4537-bd49-28573b0c6840" />
